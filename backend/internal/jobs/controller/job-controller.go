@@ -6,6 +6,9 @@ import (
 )
 
 func CreateAJob(job *jobmodel.Job) (err error) {
+
+	job.DefaultValues()
+
 	result := dao.DB.Create(&job)
 
 	return result.Error
@@ -23,6 +26,7 @@ func GetAllJob() (jobList []*jobmodel.Job, err error) {
 
 func GetAJob(id string) (job *jobmodel.Job, err error) {
 	job = new(jobmodel.Job)
+
 	result := dao.DB.Debug().Where("id=?", id).First(job)
 
 	if result.Error != nil {
