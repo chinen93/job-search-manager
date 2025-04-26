@@ -23,6 +23,9 @@ func Start() {
 	router.GET("/jobs", jobserver.GetJobs)
 	router.GET("/jobs/:id", jobserver.GetJobByID)
 	router.POST("/jobs", jobserver.PostJobs)
+	router.GET("/companies", jobserver.GetCompanies)
+	router.GET("/companies/:id", jobserver.GetCompanyByID)
+	router.POST("/companies", jobserver.PostCompanies)
 
 	router.Run("localhost:8080")
 

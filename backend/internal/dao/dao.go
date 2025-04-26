@@ -21,26 +21,33 @@ var (
 	DB *gorm.DB
 )
 
-func Init() (err error) {
-	log.Println("Database Starting")
-
+func selectDatabaseFilename() (database_filename string) {
 	envmode := os.Getenv(config.ENV_MODE)
 
-	var database_filename string
-
 	switch envmode {
+
 	case config.TEST_MODE:
 		log.Println("Using Test Database")
 		os.Remove(TEST_DATABASE_FILENAME)
 		database_filename = TEST_DATABASE_FILENAME
+
 	case config.PROD_MODE:
 		database_filename = DATABASE_FILENAME
+
 	}
 
-	database, err := gorm.Open(sqlite.Open(database_filename), &gorm.Config{})
-	DB = database
+	return
+}
 
-	database.AutoMigrate(&jobmodel.Job{})
+func Init() (err error) {
+	log.Println("Database Starting")
+
+	database_filename := selectDatabaseFilename()
+	database, err := gorm.Open(sqlite.Open(database_filename), &gorm.Config{})
+
+	DB = database.Debug()
+
+	database.AutoMigrate(&jobmodel.Job{}, &jobmodel.Company{})
 
 	if err != nil {
 		log.Println("failed to connect database")

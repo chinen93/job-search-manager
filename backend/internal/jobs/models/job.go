@@ -15,12 +15,13 @@ const (
 )
 
 type Job struct {
-	ID          string    `json:"id"`
+	ID          string    `json:"id" gorm:"primaryKey"`
 	Date        string    `json:"date"`
 	Title       string    `json:"title"`
 	Description string    `json:"description"`
 	Notes       string    `json:"notes"`
 	Status      JobStatus `json:"status"`
+	CompanyID   string
 }
 
 func (job *Job) DefaultValues() {

@@ -27,7 +27,7 @@ func GetAllJob() (jobList []*jobmodel.Job, err error) {
 func GetAJob(id string) (job *jobmodel.Job, err error) {
 	job = new(jobmodel.Job)
 
-	result := dao.DB.Debug().Where("id=?", id).First(job)
+	result := dao.DB.Where(SQL_WHERE_ID, id).First(job)
 
 	if result.Error != nil {
 		return nil, result.Error
@@ -43,7 +43,7 @@ func UpdateAJob(job *jobmodel.Job) (err error) {
 }
 
 func DeleteAJob(id string) (err error) {
-	result := dao.DB.Where("id=?", id).Delete(&jobmodel.Job{})
+	result := dao.DB.Where(SQL_WHERE_ID, id).Delete(&jobmodel.Job{})
 
 	return result.Error
 }
