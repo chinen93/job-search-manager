@@ -29,19 +29,19 @@ func InitTest() {
 	}
 
 	for _, job := range Jobs {
-		jobController.CreateAJob(&job)
+		jobController.Create(&job)
 	}
 
 	for _, company := range Companies {
-		companyController.CreateACompany(&company)
+		companyController.Create(&company)
 	}
 
 	for jobID, company := range JobCompanyAssociation {
 
 		log.Println(company)
-		companyController.AddJobtoCompany(&company, jobID)
+		companyController.AddJob(&company, jobID)
 
-		expected, _ := companyController.GetACompany(company.ID)
+		expected, _ := companyController.Get(company.ID)
 		log.Println(expected)
 	}
 

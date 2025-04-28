@@ -11,7 +11,7 @@ import (
 var jobController = new(jobcontroller.JobController)
 
 func GetJobs(c *gin.Context) {
-	jobs, _ := jobController.GetAllJob()
+	jobs, _ := jobController.GetAll()
 	c.IndentedJSON(http.StatusOK, jobs)
 }
 
@@ -25,7 +25,7 @@ func PostJobs(c *gin.Context) {
 	}
 
 	// Add the new job to the slice.
-	jobController.CreateAJob(&newJob)
+	jobController.Create(&newJob)
 	c.IndentedJSON(http.StatusCreated, newJob)
 }
 
@@ -34,7 +34,7 @@ func PostJobs(c *gin.Context) {
 func GetJobByID(c *gin.Context) {
 	id := c.Param("id")
 
-	job, err := jobController.GetAJob(id)
+	job, err := jobController.Get(id)
 
 	if err == nil {
 		c.IndentedJSON(http.StatusNotFound, gin.H{"message": "job not found"})

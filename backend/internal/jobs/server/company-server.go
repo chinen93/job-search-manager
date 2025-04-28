@@ -12,7 +12,7 @@ import (
 var companyController = new(jobcontroller.CompanyController)
 
 func GetCompanies(c *gin.Context) {
-	companies, _ := companyController.GetAllCompanies()
+	companies, _ := companyController.GetAll()
 	log.Println(companies)
 	c.IndentedJSON(http.StatusOK, companies)
 }
@@ -27,7 +27,7 @@ func PostCompanies(c *gin.Context) {
 	}
 
 	// Add the new job to the slice.
-	companyController.CreateACompany(&newCompany)
+	companyController.Create(&newCompany)
 	c.IndentedJSON(http.StatusCreated, newCompany)
 }
 
@@ -36,7 +36,7 @@ func PostCompanies(c *gin.Context) {
 func GetCompanyByID(c *gin.Context) {
 	id := c.Param("id")
 
-	job, err := companyController.GetACompany(id)
+	job, err := companyController.Get(id)
 
 	if err == nil {
 		c.IndentedJSON(http.StatusNotFound, gin.H{"message": "company not found"})
