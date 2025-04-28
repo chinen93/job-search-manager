@@ -9,8 +9,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+var companyController = new(jobcontroller.CompanyController)
+
 func GetCompanies(c *gin.Context) {
-	companies, _ := jobcontroller.GetAllCompanies()
+	companies, _ := companyController.GetAllCompanies()
 	log.Println(companies)
 	c.IndentedJSON(http.StatusOK, companies)
 }
@@ -25,7 +27,7 @@ func PostCompanies(c *gin.Context) {
 	}
 
 	// Add the new job to the slice.
-	jobcontroller.CreateACompany(&newCompany)
+	companyController.CreateACompany(&newCompany)
 	c.IndentedJSON(http.StatusCreated, newCompany)
 }
 
@@ -34,7 +36,7 @@ func PostCompanies(c *gin.Context) {
 func GetCompanyByID(c *gin.Context) {
 	id := c.Param("id")
 
-	job, err := jobcontroller.GetACompany(id)
+	job, err := companyController.GetACompany(id)
 
 	if err == nil {
 		c.IndentedJSON(http.StatusNotFound, gin.H{"message": "company not found"})

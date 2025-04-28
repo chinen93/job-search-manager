@@ -8,8 +8,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+var jobController = new(jobcontroller.JobController)
+
 func GetJobs(c *gin.Context) {
-	jobs, _ := jobcontroller.GetAllJob()
+	jobs, _ := jobController.GetAllJob()
 	c.IndentedJSON(http.StatusOK, jobs)
 }
 
@@ -23,7 +25,7 @@ func PostJobs(c *gin.Context) {
 	}
 
 	// Add the new job to the slice.
-	jobcontroller.CreateAJob(&newJob)
+	jobController.CreateAJob(&newJob)
 	c.IndentedJSON(http.StatusCreated, newJob)
 }
 
@@ -32,7 +34,7 @@ func PostJobs(c *gin.Context) {
 func GetJobByID(c *gin.Context) {
 	id := c.Param("id")
 
-	job, err := jobcontroller.GetAJob(id)
+	job, err := jobController.GetAJob(id)
 
 	if err == nil {
 		c.IndentedJSON(http.StatusNotFound, gin.H{"message": "job not found"})

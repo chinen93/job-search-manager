@@ -6,6 +6,9 @@ import (
 	"log"
 )
 
+var companyController = new(jobcontroller.CompanyController)
+var jobController = new(jobcontroller.JobController)
+
 func InitTest() {
 	var Jobs = []jobmodel.Job{
 		{ID: "1", Title: "Software Engineer", Description: "Lorem Ipsum 1", Notes: ""},
@@ -26,19 +29,19 @@ func InitTest() {
 	}
 
 	for _, job := range Jobs {
-		jobcontroller.CreateAJob(&job)
+		jobController.CreateAJob(&job)
 	}
 
 	for _, company := range Companies {
-		jobcontroller.CreateACompany(&company)
+		companyController.CreateACompany(&company)
 	}
 
 	for jobID, company := range JobCompanyAssociation {
 
 		log.Println(company)
-		jobcontroller.AddJobtoCompany(&company, jobID)
+		companyController.AddJobtoCompany(&company, jobID)
 
-		expected, _ := jobcontroller.GetACompany(company.ID)
+		expected, _ := companyController.GetACompany(company.ID)
 		log.Println(expected)
 	}
 
