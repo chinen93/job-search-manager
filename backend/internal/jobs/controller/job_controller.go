@@ -7,13 +7,15 @@ import (
 
 type JobController struct{}
 
-func (jobController *JobController) Create(job *jobmodel.Job) (err error) {
+func (jobController *JobController) Create(job *jobmodel.Job) (jobCreated *jobmodel.Job, err error) {
 
 	job.DefaultValues()
 
 	result := dao.DB.Create(&job)
 
-	return result.Error
+	jobCreated, _ = jobController.Get(job.ID)
+
+	return jobCreated, result.Error
 }
 
 func (jobController *JobController) GetAll() (jobList []*jobmodel.Job, err error) {

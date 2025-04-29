@@ -13,8 +13,8 @@ import (
 )
 
 const (
-	DATABASE_FILENAME      = "internal/dao/job-search-manager-sqlite.db"
-	TEST_DATABASE_FILENAME = "internal/testdata/test-sqlite.db"
+	DATABASE_FILENAME      = "internal/dao/job_search_manager_sqlite.db"
+	TEST_DATABASE_FILENAME = "internal/testdata/test_sqlite.db"
 )
 
 var (

@@ -50,8 +50,8 @@ func (companyController *CompanyController) Delete(id string) (err error) {
 	return result.Error
 }
 
-func (companyController *CompanyController) AddJob(company *jobmodel.Company, jobID string) (err error) {
-	dao.DB.Model(&company).Association("Jobs").Append(&jobmodel.Job{ID: jobID})
+func (companyController *CompanyController) AddJob(company *jobmodel.Company, job *jobmodel.Job) (err error) {
+	dao.DB.Model(&company).Association("Jobs").Append(job)
 	result := dao.DB.Model(&company).Update("Jobs", company.Jobs)
 
 	return result.Error
