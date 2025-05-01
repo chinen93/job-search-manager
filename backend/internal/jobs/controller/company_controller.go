@@ -3,6 +3,7 @@ package jobcontroller
 import (
 	"job-search-manager/internal/dao"
 	jobmodel "job-search-manager/internal/jobs/models"
+	"strings"
 
 	"gorm.io/gorm/clause"
 )
@@ -10,6 +11,10 @@ import (
 type CompanyController struct{}
 
 func (companyController *CompanyController) Create(company *jobmodel.Company) (err error) {
+
+	if company.ID == "" {
+		company.DefaultValues()
+	}
 
 	result := dao.DB.Create(&company)
 
@@ -26,10 +31,22 @@ func (companyController *CompanyController) GetAll() (companyList []*jobmodel.Co
 	return companyList, result.Error
 }
 
-func (companyController *CompanyController) Get(id string) (company *jobmodel.Company, err error) {
+func (companyController *CompanyController) GetById(id string) (company *jobmodel.Company, err error) {
 	company = new(jobmodel.Company)
 
 	result := dao.DB.Preload(clause.Associations).Where(SQL_WHERE_ID, id).First(company)
+
+	if result.Error != nil {
+		return nil, result.Error
+	}
+
+	return company, result.Error
+}
+
+func (companyController *CompanyController) GetByName(name string) (company *jobmodel.Company, err error) {
+	company = new(jobmodel.Company)
+
+	result := dao.DB.Preload(clause.Associations).Where(SQL_WHERE_NAME, strings.ToUpper(name)).First(company)
 
 	if result.Error != nil {
 		return nil, result.Error

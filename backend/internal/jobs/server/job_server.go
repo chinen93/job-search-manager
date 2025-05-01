@@ -34,7 +34,7 @@ func PostJobs(c *gin.Context) {
 func GetJobByID(c *gin.Context) {
 	id := c.Param("id")
 
-	job, err := jobController.Get(id)
+	job, err := jobController.GetById(id)
 
 	if err == nil {
 		c.IndentedJSON(http.StatusNotFound, gin.H{"message": "job not found"})

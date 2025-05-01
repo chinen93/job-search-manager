@@ -36,7 +36,7 @@ func PostCompanies(c *gin.Context) {
 func GetCompanyByID(c *gin.Context) {
 	id := c.Param("id")
 
-	job, err := companyController.Get(id)
+	job, err := companyController.GetById(id)
 
 	if err == nil {
 		c.IndentedJSON(http.StatusNotFound, gin.H{"message": "company not found"})

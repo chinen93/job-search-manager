@@ -1,8 +1,11 @@
-run:
-	- go test ./internal/testdata/
-	- go run cmd/main.go
+VERBOSE=-v
 
 test:
-	- go test -v ./internal/testdata/
+	- go test ./internal/testdata/ $(VERBOSE)
+	- go test ./internal/jobs/controller/ $(VERBOSE)
+
+run: VERBOSE=
+run: test
+	- go run cmd/main.go
 
 .PHONY: run test

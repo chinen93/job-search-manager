@@ -13,7 +13,7 @@ func (jobController *JobController) Create(job *jobmodel.Job) (jobCreated *jobmo
 
 	result := dao.DB.Create(&job)
 
-	jobCreated, _ = jobController.Get(job.ID)
+	jobCreated, _ = jobController.GetById(job.ID)
 
 	return jobCreated, result.Error
 }
@@ -28,7 +28,7 @@ func (jobController *JobController) GetAll() (jobList []*jobmodel.Job, err error
 	return jobList, result.Error
 }
 
-func (jobController *JobController) Get(id string) (job *jobmodel.Job, err error) {
+func (jobController *JobController) GetById(id string) (job *jobmodel.Job, err error) {
 	job = new(jobmodel.Job)
 
 	result := dao.DB.Where(SQL_WHERE_ID, id).First(job)
