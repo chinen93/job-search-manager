@@ -14,3 +14,12 @@ func (company *Company) DefaultValues() {
 
 	company.ID = uuid.NewString()
 }
+
+func MakeCompany(name string) *Company {
+
+	company := Company{
+		Name: name,
+	}
+	company.DefaultValues()
+	return &company
+}

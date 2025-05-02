@@ -30,3 +30,15 @@ func (job *Job) DefaultValues() {
 	job.Status = Pending
 	job.Date = strconv.FormatInt(timestamp, 10)
 }
+
+func MakeJob(id string, title string, desc string, notes string) *Job {
+	job := Job{
+		ID:          id,
+		Title:       title,
+		Description: desc,
+		Notes:       notes,
+	}
+	job.DefaultValues()
+
+	return &job
+}

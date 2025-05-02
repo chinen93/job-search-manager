@@ -7,3 +7,13 @@ type Position struct {
 	Description string `json:"description"`
 	Notes       string `json:"notes"`
 }
+
+func MakePosition(company, id, title, description, notes string) *Position {
+	return &Position{
+		Company:     company,
+		ID:          id,
+		Title:       title,
+		Description: description,
+		Notes:       notes,
+	}
+}

@@ -20,17 +20,11 @@ func (positionController *PositionController) Create(position *jobmodel.Position
 
 	company, _ = companyController.GetByName(position.Company)
 	if company == nil {
-		company = new(jobmodel.Company)
-		company.Name = position.Company
+		company = jobmodel.MakeCompany(position.Company)
 		companyController.Create(company)
 	}
 
-	newJob := new(jobmodel.Job)
-	newJob.ID = position.ID
-	newJob.Title = position.Title
-	newJob.Notes = position.Notes
-	newJob.Description = position.Description
-
+	newJob := jobmodel.MakeJob(position.ID, position.Title, position.Description, position.Notes)
 	jobController.Create(newJob)
 
 	companyController.AddJob(company, newJob)
