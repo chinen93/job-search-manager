@@ -6,14 +6,12 @@ import (
 	"io"
 	jobmodel "job-search-manager/internal/jobs/models"
 	"os"
-)
-
-const (
-	POSITIONS_FILENAME = "./data/positions.csv"
+	"path/filepath"
 )
 
 var (
-	EXPECTED_HEADERS = []string{"Status", "Date", "Company", "Job Title", "ID", "Description"}
+	POSITIONS_FILENAME = "./data/positions.csv"
+	EXPECTED_HEADERS   = []string{"Status", "Date", "Company", "Job Title", "ID", "Description"}
 )
 
 func isCVSFileValid(reader *csv.Reader) bool {
@@ -47,6 +45,8 @@ func handleCSVRows(reader *csv.Reader) ([]*jobmodel.Position, error) {
 
 		position := &jobmodel.Position{}
 
+		position.Status = SanitizeString(row[0])
+		position.Date = SanitizeString(row[1])
 		position.Company = SanitizeString(row[2])
 		position.Title = SanitizeString(row[3])
 		position.ID = SanitizeString(row[4])
@@ -57,7 +57,6 @@ func handleCSVRows(reader *csv.Reader) ([]*jobmodel.Position, error) {
 }
 
 func parsePositions() ([]*jobmodel.Position, error) {
-
 	f, err := os.Open(POSITIONS_FILENAME)
 	if err != nil {
 		return nil, err
@@ -71,4 +70,8 @@ func parsePositions() ([]*jobmodel.Position, error) {
 	}
 
 	return handleCSVRows(csvr)
+}
+
+func setPositionsFilepath(newPath string) {
+	POSITIONS_FILENAME, _ = filepath.Abs(newPath)
 }

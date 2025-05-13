@@ -3,6 +3,7 @@ VERBOSE=-v
 test:
 	- go test ./internal/testdata/ $(VERBOSE)
 	- go test ./internal/jobs/controller/ $(VERBOSE)
+	- go test ./internal/data_helper/ $(VERBOSE)
 
 run_helper: VERBOSE=
 run_helper: test

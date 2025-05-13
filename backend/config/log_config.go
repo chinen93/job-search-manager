@@ -2,6 +2,6 @@ package config
 
 import "log"
 
-func ConfigLog() {
+func configLog() {
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 }

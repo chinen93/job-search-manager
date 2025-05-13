@@ -8,8 +8,7 @@ import (
 
 func main() {
 
-	config.ConfigLog()
-	config.ConfigEnv()
+	config.Init()
 
 	log.Print("Helper")
 

@@ -7,6 +7,8 @@ import (
 )
 
 const (
+	STATUS_A  = string(jobmodel.PENDING)
+	DATE_A    = "2025-05-13"
 	COMPANY_A = "Company A"
 	TITLE_A   = "Position A"
 	DESC_A    = "Loren Ipsum"
@@ -55,7 +57,7 @@ func Test_Controllers(t *testing.T) {
 
 	t.Run("Add Position", func(t *testing.T) {
 
-		newPosition := jobmodel.MakePosition(COMPANY_A, JOB_ID_1, TITLE_A, DESC_A, NOTES_A)
+		newPosition := jobmodel.MakePosition(STATUS_A, DATE_A, COMPANY_A, JOB_ID_1, TITLE_A, DESC_A, NOTES_A)
 
 		job, err := jobController.GetById(newPosition.ID)
 		if job != nil {
@@ -90,7 +92,7 @@ func Test_Controllers(t *testing.T) {
 
 	t.Run("Do Not Add Duplicated Position", func(t *testing.T) {
 
-		newPosition := jobmodel.MakePosition(COMPANY_A, JOB_ID_1, TITLE_A, DESC_A, NOTES_A)
+		newPosition := jobmodel.MakePosition(STATUS_A, DATE_A, COMPANY_A, JOB_ID_1, TITLE_A, DESC_A, NOTES_A)
 
 		job, err := jobController.GetById(newPosition.ID)
 		if job == nil {
@@ -119,7 +121,7 @@ func Test_Controllers(t *testing.T) {
 
 	t.Run("Add Position Same Company", func(t *testing.T) {
 
-		newPosition := jobmodel.MakePosition(COMPANY_A, JOB_ID_2, TITLE_A, DESC_A, NOTES_A)
+		newPosition := jobmodel.MakePosition(STATUS_A, DATE_A, COMPANY_A, JOB_ID_2, TITLE_A, DESC_A, NOTES_A)
 
 		job, err := jobController.GetById(newPosition.ID)
 		if job != nil {

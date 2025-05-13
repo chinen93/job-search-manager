@@ -4,7 +4,7 @@ import (
 	"regexp"
 )
 
-var allowedChars = regexp.MustCompile(`[^a-zA-Z0-9_]`)
+var allowedChars = regexp.MustCompile(`[^a-zA-Z0-9]`)
 
 func SanitizeString(input string) string {
 

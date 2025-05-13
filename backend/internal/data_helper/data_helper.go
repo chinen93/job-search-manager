@@ -3,7 +3,6 @@ package datahelper
 import (
 	dao "job-search-manager/internal/dao"
 	jobcontroller "job-search-manager/internal/jobs/controller"
-	"log"
 )
 
 func ImportPositions() error {
@@ -19,7 +18,6 @@ func ImportPositions() error {
 	}
 
 	for _, position := range positions {
-		log.Println(position)
 		positionController.Create(position)
 	}
 

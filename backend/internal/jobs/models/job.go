@@ -5,15 +5,6 @@ import (
 	"time"
 )
 
-type JobStatus string
-
-const (
-	Pending   JobStatus = "pending"
-	Rejected  JobStatus = "rejected"
-	Contacted JobStatus = "contacted"
-	Offer     JobStatus = "offer"
-)
-
 type Job struct {
 	ID          string    `json:"id" gorm:"primaryKey"`
 	Date        string    `json:"date"`
@@ -27,7 +18,7 @@ type Job struct {
 func (job *Job) DefaultValues() {
 	timestamp := time.Now().Unix()
 
-	job.Status = Pending
+	job.Status = PENDING
 	job.Date = strconv.FormatInt(timestamp, 10)
 }
 

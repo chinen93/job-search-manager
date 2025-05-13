@@ -7,8 +7,7 @@ import (
 
 func main() {
 
-	config.ConfigLog()
-	config.ConfigEnv()
+	config.Init()
 
 	server.Start()
 }
