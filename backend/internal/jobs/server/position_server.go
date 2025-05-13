@@ -20,6 +20,11 @@ func PostPosition(c *gin.Context) {
 		return
 	}
 
-	result, _ := positionController.Create(&newPosition)
+	result, err := positionController.Create(&newPosition)
+	if err != nil {
+		c.IndentedJSON(http.StatusConflict, gin.H{"message": "Position already exist"})
+		return
+	}
+
 	c.IndentedJSON(http.StatusCreated, result)
 }

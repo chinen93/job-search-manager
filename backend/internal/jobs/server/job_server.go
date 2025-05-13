@@ -25,7 +25,11 @@ func PostJobs(c *gin.Context) {
 	}
 
 	// Add the new job to the slice.
-	jobController.Create(&newJob)
+	_, err := jobController.Create(&newJob)
+	if err != nil {
+		c.IndentedJSON(http.StatusConflict, gin.H{"message": "job already exist"})
+		return
+	}
 	c.IndentedJSON(http.StatusCreated, newJob)
 }
 
@@ -36,8 +40,9 @@ func GetJobByID(c *gin.Context) {
 
 	job, err := jobController.GetById(id)
 
-	if err == nil {
+	if err != nil {
 		c.IndentedJSON(http.StatusNotFound, gin.H{"message": "job not found"})
+		return
 	}
 
 	c.IndentedJSON(http.StatusOK, job)

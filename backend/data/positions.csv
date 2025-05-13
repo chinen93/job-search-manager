@@ -1,0 +1,4 @@
+Status,Date,Company,Job Title,ID,Description
+REJECTED,2025-05-08,Test Company,Test Job,1234,Lorem Ipsum
+TODO,2025-05-08,Test Company,Test Job,ABCD,Lorem Ipsum
+REJECTED,2025-05-11,Another Test Company,Test Job,,Lorem Ipsum

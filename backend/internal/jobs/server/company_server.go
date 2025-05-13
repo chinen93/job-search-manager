@@ -27,7 +27,12 @@ func PostCompanies(c *gin.Context) {
 	}
 
 	// Add the new job to the slice.
-	companyController.Create(&newCompany)
+	err := companyController.Create(&newCompany)
+	if err != nil {
+		c.IndentedJSON(http.StatusConflict, gin.H{"message": "Company already exist"})
+		return
+	}
+
 	c.IndentedJSON(http.StatusCreated, newCompany)
 }
 
@@ -38,8 +43,9 @@ func GetCompanyByID(c *gin.Context) {
 
 	job, err := companyController.GetById(id)
 
-	if err == nil {
+	if err != nil {
 		c.IndentedJSON(http.StatusNotFound, gin.H{"message": "company not found"})
+		return
 	}
 
 	c.IndentedJSON(http.StatusOK, job)

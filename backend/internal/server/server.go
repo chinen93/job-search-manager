@@ -11,7 +11,6 @@ import (
 )
 
 func Start() {
-	log.SetFlags(log.LstdFlags | log.Lshortfile)
 	log.Println("Server Starting")
 
 	dao.Init()
@@ -26,6 +25,7 @@ func Start() {
 	router.GET("/companies", jobserver.GetCompanies)
 	router.GET("/companies/:id", jobserver.GetCompanyByID)
 	router.POST("/companies", jobserver.PostCompanies)
+	router.POST("/position", jobserver.PostPosition)
 
 	router.Run("localhost:8080")
 

@@ -1,6 +1,7 @@
 package jobcontroller
 
 import (
+	"errors"
 	jobmodel "job-search-manager/internal/jobs/models"
 	"log"
 )
@@ -12,10 +13,10 @@ func (positionController *PositionController) Create(position *jobmodel.Position
 	companyController := new(CompanyController)
 	jobController := new(JobController)
 
-	job, err := jobController.GetById(position.ID)
+	job, _ := jobController.GetById(position.ID)
 	if job != nil {
 		log.Printf("Job '%v' already exist", position.ID)
-		return nil, err
+		return nil, errors.New("job already exists")
 	}
 
 	company, _ = companyController.GetByName(position.Company)

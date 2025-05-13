@@ -28,7 +28,9 @@ func selectDatabaseFilename() (database_filename string) {
 
 	case config.TEST_MODE:
 		log.Println("Using Test Database")
+
 		os.Remove(TEST_DATABASE_FILENAME)
+
 		database_filename = TEST_DATABASE_FILENAME
 
 	case config.PROD_MODE:
